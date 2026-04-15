@@ -1,0 +1,50 @@
+erDiagram
+    CLIENTES {
+        int id PK
+        string nombre
+        string email
+        string password
+        string telefono
+        string role
+        datetime created_at
+    }
+
+    LOTES {
+        int id PK
+        string numero_lote
+        decimal area_m2
+        string direccion
+        string ubicacion
+        decimal valor_total
+        string etapa
+        string estado
+        int cliente_id FK
+    }
+
+    PAGOS {
+        int id PK
+        int cliente_id FK
+        int lote_id FK
+        decimal monto
+        datetime fecha_pago
+        string comprobante_url
+        string referencia_pago
+    }
+
+    PQRS {
+        int id PK
+        string tipo
+        int cliente_id FK
+        string nombre
+        string email
+        string telefono
+        string asunto
+        text descripcion
+        string estado
+    }
+
+    %% Relaciones
+    CLIENTES ||--o{ LOTES : "posee / reserva"
+    CLIENTES ||--o{ PAGOS : "realiza"
+    LOTES ||--o{ PAGOS : "recibe"
+    CLIENTES ||--o{ PQRS : "reporta"
