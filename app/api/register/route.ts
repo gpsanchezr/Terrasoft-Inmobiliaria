@@ -38,49 +38,55 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Crear usuario en Supabase Auth
-    const { data: authData, error: authError } = await supabase.auth.signUp({
-      email: email.trim().toLowerCase(),
-      password,
-    });
-
-    if (authError) {
-      console.error('Error en Supabase Auth:', authError);
-      return NextResponse.json(
-        { error: `Error al crear usuario: ${authError.message}` },
-        { status: 400 }
-      );
-    }
-
-    if (!authData.user) {
-      return NextResponse.json(
-        { error: 'No se pudo crear el usuario' },
-        { status: 400 }
-      );
-    }
-
-    // Crear perfil de usuario usando cliente de servicio (evita RLS)
-    const { error: profileError } = await supabaseAdmin
-      .from('user_profiles')
-      .insert({
-        id: authData.user.id,
+    try {
+      // Paso 1: Crear usuario en Supabase Auth
+      console.log('Paso 1: Creando usuario auth...', email);
+      const { data: authData, error: authError } = await supabase.auth.signUp({
         email: email.trim().toLowerCase(),
-        full_name: username.trim(),
-        role: 'cliente',
+        password,
       });
 
-    if (profileError) {
-      console.error('Error al crear perfil:', profileError);
-      // Si falla el perfil, intentar eliminar el usuario de auth con cliente admin
-      try {
-        await supabaseAdmin.auth.admin.deleteUser(authData.user.id);
-      } catch (cleanupError) {
-        console.error('No se pudo eliminar usuario tras fallo de perfil:', cleanupError);
+      if (authError) {
+        console.error('FALLO PASO 1 Auth:', authError);
+        return NextResponse.json({ error: `Error Auth: ${authError.message}` }, { status: 400 });
       }
-      return NextResponse.json(
-        { error: `Error al crear perfil: ${profileError.message}` },
-        { status: 500 }
-      );
+
+      if (!authData.user) {
+        console.error('FALLO PASO 1: No user creado');
+        return NextResponse.json({ error: 'No se pudo crear usuario auth' }, { status: 400 });
+      }
+
+      console.log('ÉXITO PASO 1 Auth:', authData.user.id);
+
+      // Paso 2: Crear perfil user_profiles
+      console.log('Paso 2: Creando perfil...', authData.user.id);
+      const { error: profileError } = await supabaseAdmin
+        .from('user_profiles')
+        .insert({
+          id: authData.user.id,
+          email: email.trim().toLowerCase(),
+          full_name: username.trim(),
+          role: 'cliente',
+        });
+
+      if (profileError) {
+        console.error('FALLO PASO 2 Profile:', profileError);
+        return NextResponse.json({ error: `Error Profile: ${profileError.message}` }, { status: 500 });
+      }
+
+      console.log('ÉXITO PASO 2 Profile');
+
+      return NextResponse.json({
+        message: 'Usuario registrado exitosamente',
+        user: {
+          id: authData.user.id,
+          email: authData.user.email,
+          full_name: username.trim(),
+        },
+      });
+    } catch (error) {
+      console.error('Error global:', error);
+      return NextResponse.json({ error: 'Error interno servidor' }, { status: 500 });
     }
 
     return NextResponse.json({
