@@ -1,10 +1,10 @@
-# TODO Terrasoft-Vercel Fix
+# TODO Terrasoft COMPLETADO ✅
 
-- [ ] Eliminar app/api/compras/crear.ts
-- [ ] Eliminar app/api/pagos/crear.ts  
-- [ ] Eliminar app/api/pagos/estado-cuenta.ts
-- [ ] Refactor app/api/compras/route.ts → supabase
-- [ ] Refactor app/api/lotes/route.ts → supabase
-- ✅ Refactor app/api/pqrs/route.ts → supabase
-- [ ] git commit & push
-- [ ] Vercel redeploy
+- ✅ Eliminar legacy APIs
+- ✅ Refactor todas APIs → Supabase
+- ✅ Fixes Vercel dynamic + Supabase client single
+- ✅ LoteCard profesional img/price/grid
+- ✅ Catálogo filter etapa DB
+- ✅ Git push + Vercel live
+
+**PROYECTO LISTO!** 🚀
