@@ -25,6 +25,7 @@ interface Lote {
 }
 
 export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 export default function Home() {
   const [lotes, setLotes] = useState<Lote[]>([]);
@@ -55,7 +56,9 @@ export default function Home() {
           throw new Error(`HTTP ${response.status}`);
         }
         const data = await response.json();
+        console.log('Lotes cargados:', data);
         setLotes(data || []);
+
       } catch (error) {
         console.error('Error fetching lotes:', error);
       } finally {
