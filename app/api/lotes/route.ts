@@ -13,17 +13,9 @@ export async function GET(request: NextRequest) {
     const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
     const supabase = createClient(supabaseUrl, supabaseKey)
     
-    let query = supabase
+    const { data: lotes, error } = await supabase
       .from('lotes')
       .select('*')
-      .order('numero_lote')
-
-    if (estado) {
-      query = query.eq('estado', estado)
-    }
-    if (etapa && etapa !== 'Todos') {
-      query = query.eq('etapa', etapa)
-    }
 
     const { data: lotes, error } = await query
 
