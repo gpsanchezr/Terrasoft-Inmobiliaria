@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
@@ -31,7 +30,6 @@ export default function Home() {
   const [filtroEtapa, setFiltroEtapa] = useState<string | null>(null);
   const [isChatbotOpen, setIsChatbotOpen] = useState(false);
 
-  // Estado para formulario de registro
   const [registerForm, setRegisterForm] = useState({
     email: '',
     password: '',
@@ -66,7 +64,6 @@ export default function Home() {
     fetchLotes();
   }, [filtroEtapa]);
 
-  // Función para manejar registro con finally para asegurar que loading se desactive
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     setRegisterMessage(null);
@@ -87,13 +84,11 @@ export default function Home() {
         throw new Error(data.error || 'Error al registrar usuario');
       }
 
-      // Registro exitoso
       setRegisterMessage({
         type: 'success',
         text: '¡Usuario registrado exitosamente! Revisa tu email para confirmar la cuenta.',
       });
 
-      // Limpiar formulario
       setRegisterForm({
         email: '',
         password: '',
@@ -107,73 +102,56 @@ export default function Home() {
         text: error instanceof Error ? error.message : 'Error desconocido al registrar usuario',
       });
     } finally {
-      // Este bloque finally asegura que loading se desactive SIEMPRE,
-      // independientemente de si el registro fue exitoso o falló
       setRegisterLoading(false);
     }
   };
 
   return (
-min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-100
-      {/* Hero Section - Lujo MonteVerde */}
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-100">
+      {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden py-16">
-        {/* Logo fijo de Seguros Bolívar */}
-        <Image
-          src="/images/seguros-bolivar-logo.png"
-          alt="Seguros Bolívar"
-          width={120}
-          height={40}
-          className="logo-seguros"
-          priority
-        />
-        {/* Fondo Gradiente Premium */}
-bg-gradient-to-br from-slate-50 via-white to-slate-50 opacity-100
+        {/* Logo fijo */}
+        <div className="logo-seguros bg-white p-2 rounded-lg shadow-sm border border-emerald-100 flex items-center justify-center w-[120px] h-[40px]">
+          <span className="font-bold text-emerald-700 text-sm">Seguros Bolívar</span>
+        </div>
+        {/* Fondo */}
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-50 to-emerald-50" />
         
-        {/* Elementos decorativos */}
-        <div className="absolute top-20 right-10 w-72 h-72 bg-bolivar-verde rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse" />
-        <div className="absolute -bottom-8 left-20 w-72 h-72 bg-bolivar-amarillo rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse" />
-        <div className="absolute bottom-0 right-1/4 w-72 h-72 bg-bolivar-verde rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-pulse" />
+        <div className="absolute top-20 right-10 w-72 h-72 bg-emerald-100 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse" />
+        <div className="absolute -bottom-8 left-20 w-72 h-72 bg-emerald-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse" />
+        <div className="absolute bottom-0 right-1/4 w-72 h-72 bg-emerald-100 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-pulse" />
 
-        {/* Contenido Central - Glassmorphism Card */}
         <div className="relative z-10 max-w-2xl mx-auto px-4 text-center">
-          {/* Logo Superior */}
           <div className="mb-8">
-            <h1 className="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-bolivar-verde via-bolivar-amarillo to-bolivar-verde mb-2">
+            <h1 className="text-5xl md:text-7xl font-black text-emerald-900 mb-2 font-[800] drop-shadow-md tracking-tight">
               MonteVerde
             </h1>
             <div className="mt-3 flex justify-center">
-              <Image
-src="https://www.segurosbolivar.com/assets/images/logo-seguros-bolivar.png"
-                alt="Seguros Bolívar"
-                width={180}
-                height={54}
-                className="rounded-lg border-2 border-bolivar-amarillo/70"
-              />
+              <div className='bg-white p-2 rounded-lg shadow-sm border border-emerald-100 flex items-center justify-center w-40 h-16'>
+                <span className='font-bold text-emerald-700'>Seguros Bolívar</span>
+              </div>
             </div>
-            <p className="text-bolivar-verde font-light tracking-widest mt-3">RESERVA INMOBILIARIA DE LUJO</p>
-            <p className="text-xs text-bolivar-amarillo/80 mt-1 font-medium">Respaldo Aseguradora Bolívar</p>
+            <p className="text-emerald-800 font-light tracking-widest mt-3 text-xl">RESERVA INMOBILIARIA DE LUJO</p>
+            <p className="text-xs text-emerald-600 mt-1 font-medium">Respaldo Aseguradora Bolívar</p>
           </div>
 
-          {/* Glassmorphism Card */}
-          <div className="backdrop-blur-md bg-white/10 border border-white/20 rounded-3xl px-8 md:px-12 py-12 shadow-2xl hover:shadow-bolivar-verde/20 transition-all duration-500">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 leading-tight">
+          <div className="backdrop-blur-md bg-white/80 border border-slate-200 rounded-3xl px-8 md:px-12 py-12 shadow-2xl hover:shadow-emerald-200/50 transition-all duration-500 border-opacity-50">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4 leading-tight">
               Tu Futuro Hogar en el Mejor Proyecto
             </h2>
-            <p className="text-lg text-bolivar-verde mb-8 font-light">
+            <p className="text-lg text-slate-700 mb-8 font-light">
               Invierte en lotes en una comunidad exclusiva con seguridad garantizada y valorización constante
             </p>
 
-            {/* Respaldo Logo */}
-            <div className="my-6 py-4 border-t border-b border-white/20">
-              <p className="text-sm text-bolivar-verde font-semibold">✓ Respaldo Aseguradora Bolívar</p>
+            <div className="my-6 py-4 border-t border-b border-slate-200">
+              <p className="text-sm text-emerald-700 font-semibold">✓ Respaldo Aseguradora Bolívar</p>
             </div>
 
-            {/* Botones */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="#catalogo">
                 <Button 
                   size="lg" 
-                  className="w-full sm:w-auto bg-gradient-to-r from-bolivar-verde to-bolivar-amarillo text-white hover:shadow-bolivar-verde/50 hover:shadow-lg font-bold text-base"
+                  className="w-full sm:w-auto bg-gradient-to-r from-emerald-600 to-emerald-700 text-white hover:shadow-lg hover:scale-105 transition-all duration-300 rounded-full font-bold text-base shadow-md px-8"
                 >
                   Explorar Catálogo
                 </Button>
@@ -181,7 +159,7 @@ src="https://www.segurosbolivar.com/assets/images/logo-seguros-bolivar.png"
               <Link href="/login">
                 <Button 
                   size="lg" 
-                  className="w-full sm:w-auto bg-white/20 border border-white/50 text-white hover:bg-white/30 hover:border-white/70 font-bold text-base transition-all duration-300"
+                  className="w-full sm:w-auto bg-white border border-slate-300 text-slate-900 hover:bg-slate-50 hover:shadow-md hover:scale-105 transition-all duration-300 rounded-full font-bold text-base shadow-md px-8"
                 >
                   Acceso Clientes
                 </Button>
@@ -190,9 +168,8 @@ src="https://www.segurosbolivar.com/assets/images/logo-seguros-bolivar.png"
           </div>
         </div>
 
-        {/* Scroll Indicator */}
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10">
-          <div className="animate-bounce text-bolivar-amarillo">
+          <div className="animate-bounce text-emerald-500">
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
             </svg>
@@ -200,26 +177,26 @@ src="https://www.segurosbolivar.com/assets/images/logo-seguros-bolivar.png"
         </div>
       </section>
 
-      {/* Sección de Registro Rápido */}
-      <section className="py-16 px-4 bg-gradient-to-r from-bolivar-verde/10 to-bolivar-amarillo/10 notranslate">
+      {/* Registro */}
+      <section className="py-16 px-4 bg-gradient-to-r from-emerald-50 to-slate-50">
         <div className="max-w-md mx-auto">
-          <Card className="shadow-xl border-0">
-            <CardHeader className="bg-gradient-to-r from-bolivar-verde to-bolivar-amarillo text-white rounded-t-lg">
+          <Card className="shadow-2xl border-0">
+            <CardHeader className="bg-gradient-to-r from-emerald-600 to-emerald-700 text-white rounded-t-lg">
               <CardTitle className="text-center">Regístrate en MonteVerde</CardTitle>
-              <CardDescription className="text-center text-bolivar-amarillo/80">
+              <CardDescription className="text-center text-emerald-100">
                 Crea tu cuenta para acceder a todas las funcionalidades
               </CardDescription>
             </CardHeader>
-            <CardContent className="pt-6">
+            <CardContent className="pt-6 p-8">
               {registerMessage && (
-                <Alert className={`mb-4 ${registerMessage.type === 'success' ? 'bg-green-50 border-green-300' : 'bg-red-50 border-red-300'}`}>
+                <Alert className={`mb-4 ${registerMessage.type === 'success' ? 'bg-emerald-50 border-emerald-300' : 'bg-red-50 border-red-300'}`}>
                   <div className="flex items-center gap-2">
                     {registerMessage.type === 'success' ? (
-                      <CheckCircle2 className="w-4 h-4 text-green-600" />
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600" />
                     ) : (
                       <AlertCircle className="w-4 h-4 text-red-600" />
                     )}
-                    <AlertDescription className={registerMessage.type === 'success' ? 'text-green-700' : 'text-red-700'}>
+                    <AlertDescription className={registerMessage.type === 'success' ? 'text-emerald-700' : 'text-red-700'}>
                       {registerMessage.text}
                     </AlertDescription>
                   </div>
@@ -237,7 +214,7 @@ src="https://www.segurosbolivar.com/assets/images/logo-seguros-bolivar.png"
                     onChange={(e) => setRegisterForm(prev => ({ ...prev, username: e.target.value }))}
                     required
                     disabled={registerLoading}
-                    className="border-bolivar-verde/30 focus:border-bolivar-verde"
+                    className="border-slate-300 focus:border-emerald-500 focus:ring-emerald-500"
                   />
                 </div>
 
@@ -251,7 +228,7 @@ src="https://www.segurosbolivar.com/assets/images/logo-seguros-bolivar.png"
                     onChange={(e) => setRegisterForm(prev => ({ ...prev, email: e.target.value }))}
                     required
                     disabled={registerLoading}
-                    className="border-bolivar-verde/30 focus:border-bolivar-verde"
+                    className="border-slate-300 focus:border-emerald-500 focus:ring-emerald-500"
                   />
                 </div>
 
@@ -265,13 +242,13 @@ src="https://www.segurosbolivar.com/assets/images/logo-seguros-bolivar.png"
                     onChange={(e) => setRegisterForm(prev => ({ ...prev, password: e.target.value }))}
                     required
                     disabled={registerLoading}
-                    className="border-bolivar-verde/30 focus:border-bolivar-verde"
+                    className="border-slate-300 focus:border-emerald-500 focus:ring-emerald-500"
                   />
                 </div>
 
                 <Button
                   type="submit"
-                  className="w-full bg-bolivar-verde hover:bg-bolivar-verde/90 font-bold"
+                  className="w-full bg-emerald-600 hover:bg-emerald-700 font-bold shadow-md hover:shadow-lg transition-all rounded-full"
                   disabled={registerLoading}
                 >
                   {registerLoading ? 'Registrando...' : 'Crear cuenta'}
@@ -281,7 +258,7 @@ src="https://www.segurosbolivar.com/assets/images/logo-seguros-bolivar.png"
               <div className="mt-4 text-center">
                 <p className="text-sm text-gray-600">
                   ¿Ya tienes cuenta?{' '}
-                  <Link href="/login" className="text-bolivar-verde hover:text-bolivar-verde/80 font-medium">
+                  <Link href="/login" className="text-emerald-600 hover:text-emerald-700 font-medium">
                     Inicia sesión aquí
                   </Link>
                 </p>
@@ -292,10 +269,10 @@ src="https://www.segurosbolivar.com/assets/images/logo-seguros-bolivar.png"
       </section>
 
       {/* Características */}
-      <section className="py-20 px-4 bg-white/5 backdrop-blur-sm">
+      <section className="py-20 px-4 bg-gradient-to-b from-slate-50 to-white">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-4 text-white">¿Por qué elegir MonteVerde?</h2>
-          <p className="text-center text-bolivar-verde/80 mb-12 max-w-2xl mx-auto text-lg">Más que un proyecto inmobiliario, es tu inversión en futuro</p>
+          <h2 className="text-4xl font-bold text-center mb-4 text-slate-900 drop-shadow-md">¿Por qué elegir MonteVerde?</h2>
+          <p className="text-center text-slate-600 mb-12 max-w-2xl mx-auto text-lg font-light">Más que un proyecto inmobiliario, es tu inversión en futuro</p>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             {[
               {
@@ -321,13 +298,13 @@ src="https://www.segurosbolivar.com/assets/images/logo-seguros-bolivar.png"
             ].map((feature, i) => {
               const Icon = feature.icon;
               return (
-                <Card key={i} className="bg-white/10 border border-white/20 hover:bg-white/20 transition-all duration-300 backdrop-blur-sm">
+                <Card key={i} className="bg-white border-slate-200 hover:shadow-emerald-100/50 hover:border-emerald-200 transition-all duration-300 shadow-sm hover:shadow-lg hover:scale-[1.02]">
                   <CardHeader>
-                    <Icon className="w-10 h-10 text-bolivar-verde mb-3" />
-                    <CardTitle className="text-white text-lg">{feature.title}</CardTitle>
+                    <Icon className="w-12 h-12 text-emerald-600 mb-3 mx-auto" />
+                    <CardTitle className="text-slate-900 text-lg font-bold text-center">{feature.title}</CardTitle>
                   </CardHeader>
-                  <CardContent>
-                    <p className="text-bolivar-verde/70 font-light">{feature.description}</p>
+                  <CardContent className="text-center">
+                    <p className="text-slate-600 font-light">{feature.description}</p>
                   </CardContent>
                 </Card>
               );
@@ -336,32 +313,30 @@ src="https://www.segurosbolivar.com/assets/images/logo-seguros-bolivar.png"
         </div>
       </section>
 
-      {/* Etapas del Proyecto - Mejorado */}
       <EtapasTimeline />
 
-      {/* Banner Regalo */}
-      <section className="py-8 px-4 bg-amber-400">
+      <section className="py-8 px-4 bg-amber-100 border-y border-amber-200">
         <div className="max-w-6xl mx-auto text-center">
           <div className="flex items-center justify-center gap-3 text-xl md:text-2xl font-bold text-amber-900">
-            <Gift className="w-8 h-8 md:w-10 md:h-10 text-amber-600" />
+            <Gift className="w-10 h-10 text-amber-600" />
             <span>¡Obsequio especial! Recibe gratis los planos habitacionales por tu compra</span>
-            <Gift className="w-8 h-8 md:w-10 md:h-10 text-amber-600" />
+            <Gift className="w-10 h-10 text-amber-600" />
           </div>
         </div>
       </section>
 
-      {/* Lotes Disponibles */}
-      <section id="catalogo" className="py-16 px-4 bg-gradient-to-b from-white to-blue-50 notranslate">
+      <section id="catalogo" className="py-20 px-4">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-bold mb-2 text-slate-900">Catálogo de Lotes</h2>
-          <p className="text-gray-600 mb-8 text-lg">Selecciona el lote perfecto para tu inversión en MonteVerde</p>
+          <h2 className="text-4xl font-bold mb-2 text-slate-900 text-center drop-shadow-md">Catálogo de Lotes</h2>
+          <p className="text-slate-600 mb-8 text-lg text-center max-w-2xl mx-auto font-light">
+            Selecciona el lote perfecto para tu inversión en MonteVerde
+          </p>
 
-          {/* Filtros */}
-          <div className="flex gap-3 mb-8 overflow-x-auto pb-2 notranslate">
+          <div className="flex gap-3 mb-12 overflow-x-auto pb-2 justify-center">
             <Button
               variant={filtroEtapa === null ? 'default' : 'outline'}
               onClick={() => setFiltroEtapa(null)}
-              className="whitespace-nowrap"
+              className="whitespace-nowrap rounded-full"
             >
               Todos
             </Button>
@@ -370,18 +345,17 @@ src="https://www.segurosbolivar.com/assets/images/logo-seguros-bolivar.png"
                 key={etapa}
                 variant={filtroEtapa === etapa ? 'default' : 'outline'}
                 onClick={() => setFiltroEtapa(etapa)}
-                className="whitespace-nowrap"
+                className="whitespace-nowrap rounded-full"
               >
                 {etapa}
               </Button>
             ))}
           </div>
 
-          {/* Grid de Lotes */}
           {loading ? (
-            <div className="text-center py-12 text-gray-600 text-lg">Cargando lotes premium...</div>
+            <div className="text-center py-20 text-slate-600 text-xl">Cargando lotes premium...</div>
           ) : lotes.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 notranslate">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {lotes.map(lote => (
                 <LoteCard
                   key={lote.id}
@@ -393,41 +367,38 @@ src="https://www.segurosbolivar.com/assets/images/logo-seguros-bolivar.png"
               ))}
             </div>
           ) : (
-            <Card className="text-center py-12 bg-blue-50">
-              <p className="text-gray-600 text-lg">No hay lotes disponibles en esta etapa</p>
+            <Card className="text-center py-20 bg-slate-50 border-slate-200 shadow-sm max-w-2xl mx-auto">
+              <p className="text-slate-600 text-xl font-medium">No hay lotes disponibles en esta etapa</p>
             </Card>
           )}
         </div>
       </section>
 
-      {/* CTA Final */}
-      <section className="bg-gradient-to-r from-bolivar-verde to-bolivar-verde/80 text-white py-20 px-4">
+      <section className="bg-gradient-to-r from-emerald-600 to-emerald-700 text-white py-20 px-4">
         <div className="max-w-2xl mx-auto text-center">
-          <h2 className="text-4xl font-bold mb-4">¿Listo para invertir en tu futuro?</h2>
-          <p className="text-bolivar-verde/70 mb-8 text-lg font-light">
+          <h2 className="text-4xl font-bold mb-4 drop-shadow-lg">¿Listo para invertir en tu futuro?</h2>
+          <p className="text-emerald-100 mb-8 text-lg font-light">
             Contacta con nuestro equipo de vendedores especializados en MonteVerde
           </p>
           <Button 
             onClick={() => setIsChatbotOpen(true)}
             size="lg" 
-            className="bg-bolivar-verde hover:bg-bolivar-verde/90 font-bold text-base">
+            className="bg-white text-emerald-700 hover:bg-slate-100 hover:scale-105 transition-all duration-300 rounded-full font-bold text-lg shadow-2xl hover:shadow-white/50 px-10">
             Solicitar Información
           </Button>
         </div>
       </section>
 
-      {/* Sección PQRS - Con ID para navegación suave */}
-      <section id="pqrs" className="py-16 px-4 bg-gradient-to-b from-blue-50 to-white notranslate scroll-smooth">
+      <section id="pqrs" className="py-20 px-4 bg-gradient-to-b from-slate-50 to-white">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl font-bold mb-2 text-center text-slate-900">Peticiones, Quejas, Reclamos y Sugerencias</h2>
-          <p className="text-center text-gray-600 mb-12 text-lg">
+          <h2 className="text-4xl font-bold mb-2 text-center text-slate-900 drop-shadow-md">Peticiones, Quejas, Reclamos y Sugerencias</h2>
+          <p className="text-center text-slate-600 mb-12 text-lg font-light">
             Tu opinión es importante para nosotros. Cuéntanos cómo podemos mejorar tu experiencia en MonteVerde
           </p>
           <FormularioPQRS />
         </div>
       </section>
 
-      {/* Chatbot Modal */}
       <ChatbotModal isOpen={isChatbotOpen} onClose={() => setIsChatbotOpen(false)} />
     </div>
   );
