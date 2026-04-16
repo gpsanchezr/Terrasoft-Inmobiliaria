@@ -41,11 +41,11 @@ export function LotesList() {
 
   const getEstadoColor = (estado: string) => {
     switch (estado) {
-      case 'Disponible':
+case 'disponible':
         return 'bg-green-100 text-green-800'
-      case 'Reservado':
+      case 'reservado':
         return 'bg-blue-100 text-blue-800'
-      case 'Vendido':
+      case 'vendido':
         return 'bg-gray-100 text-gray-800'
       default:
         return 'bg-gray-100 text-gray-800'
@@ -54,22 +54,22 @@ export function LotesList() {
 
   const getEstadoEmoji = (estado: string) => {
     switch (estado) {
-      case 'Disponible':
+case 'disponible':
         return '✓'
-      case 'Reservado':
+      case 'reservado':
         return '⌛'
-      case 'Vendido':
+      case 'vendido':
         return '✓✓'
       default:
         return '○'
     }
   }
 
-  const stats = {
-    disponibles: lotes.filter((l) => l.estado === 'Disponible').length,
-    reservados: lotes.filter((l) => l.estado === 'Reservado').length,
-    vendidos: lotes.filter((l) => l.estado === 'Vendido').length,
-  }
+const stats = {
+  disponibles: lotes.filter((l) => l.estado === 'disponible').length,
+  reservados: lotes.filter((l) => l.estado === 'reservado').length,
+  vendidos: lotes.filter((l) => l.estado === 'vendido').length,
+}
 
   return (
     <div className="space-y-4">
