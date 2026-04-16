@@ -49,15 +49,13 @@ export default function Home() {
   useEffect(() => {
     const fetchLotes = async () => {
       try {
-        const params = new URLSearchParams();
-        if (filtroEtapa && filtroEtapa !== 'Todos') params.append('etapa', filtroEtapa);
-
-        const response = await fetch(`/api/lotes?${params.toString()}`);
+        const response = await fetch('/api/lotes', { cache: 'no-store' });
         if (!response.ok) {
           throw new Error(`HTTP ${response.status}`);
         }
         const data = await response.json();
         console.log('Lotes cargados:', data);
+        alert('API respondió con: ' + JSON.stringify(data));
         if (Array.isArray(data)) {
           setLotes(data);
         } else {

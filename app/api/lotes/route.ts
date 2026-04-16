@@ -9,16 +9,15 @@ export async function GET() {
     const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
     const supabase = createClient(supabaseUrl, supabaseKey)
 
-    const { data: lotes, error } = await supabase
-      .from('lotes')
-      .select('*')
+    const { data, error } = await supabase.from('lotes').select('*')
 
     if (error) {
       console.error('Error de Supabase:', error.message)
       return NextResponse.json({ error: error.message }, { status: 500 })
     }
 
-    return NextResponse.json(lotes || [])
+    console.log('API lotes enviando:', data?.length || 0, 'registros')
+    return NextResponse.json(data || [])
   } catch (err) {
     console.error('Error interno:', err)
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 })
