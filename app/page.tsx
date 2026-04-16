@@ -114,7 +114,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-bolivar-verde/10 via-bolivar-amarillo/10 to-white notranslate">
+min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-100
       {/* Hero Section - Lujo MonteVerde */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden py-16">
         {/* Logo fijo de Seguros Bolívar */}
@@ -127,7 +127,7 @@ export default function Home() {
           priority
         />
         {/* Fondo Gradiente Premium */}
-        <div className="absolute inset-0 bg-gradient-to-br from-bolivar-verde via-bolivar-amarillo to-bolivar-verde opacity-90" />
+bg-gradient-to-br from-slate-50 via-white to-slate-50 opacity-100
         
         {/* Elementos decorativos */}
         <div className="absolute top-20 right-10 w-72 h-72 bg-bolivar-verde rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse" />
@@ -143,7 +143,7 @@ export default function Home() {
             </h1>
             <div className="mt-3 flex justify-center">
               <Image
-                src="/images/seguros-bolivar-seeklogo.png"
+src="https://www.segurosbolivar.com/assets/images/logo-seguros-bolivar.png"
                 alt="Seguros Bolívar"
                 width={180}
                 height={54}

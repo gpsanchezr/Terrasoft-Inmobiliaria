@@ -43,15 +43,13 @@ export function LoteCard({
   return (
     <div className="bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-300 notranslate">
       {/* Imagen */}
-      {imagen_url && (
-        <div className="h-48 bg-gradient-to-br from-bolivar-verde to-bolivar-amarillo overflow-hidden">
+<div className="h-48 bg-gradient-to-br from-slate-100 to-slate-200 overflow-hidden">
           <img
-            src={imagen_url}
+            src={imagen_url || 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=1000'}
             alt={`Lote ${numero_lote}`}
             className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
           />
         </div>
-      )}
 
       {/* Contenido */}
       <div className="p-6 space-y-4">
