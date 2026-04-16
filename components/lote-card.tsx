@@ -85,7 +85,7 @@ export function LoteCard({
           </div>
           <div className="text-right">
             <p className="text-2xl font-bold text-green-600">
-              ${valor_total.toLocaleString('es-CO')}
+              ${(valor_total || 0).toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}
             </p>
           </div>
         </div>
