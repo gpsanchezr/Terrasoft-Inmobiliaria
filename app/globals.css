@@ -80,9 +80,7 @@
     @apply bg-background text-foreground;
   }
 }
-<<<<<<< HEAD
 
-/* Logo fijo de Seguros Bolívar */
 .logo-seguros {
   position: absolute;
   top: 20px;
@@ -90,5 +88,3 @@
   width: 120px;
   z-index: 10;
 }
-=======
->>>>>>> 500be9bb4e99eaf31295daa1897cf7547e2dcfd3
