@@ -14,7 +14,7 @@ import { FormularioPQRS } from '@/components/formulario-pqrs';
 import { MapPin, TrendingUp, Users, Shield, Gift, CheckCircle2, AlertCircle } from 'lucide-react';
 
 interface Lote {
-  id: number;
+  id: string | number;
   numero_lote: string;
   etapa: string;
   area_m2: number;
@@ -22,6 +22,8 @@ interface Lote {
   valor_total: number;
   estado: 'disponible' | 'reservado' | 'vendido';
   descripcion?: string;
+  imagen_url?: string;
+  mapa_url?: string;
 }
 
 export const dynamic = 'force-dynamic';
@@ -58,6 +60,7 @@ export default function Home() {
         const data = await response.json();
         console.log('Lotes cargados:', data);
         setLotes(data || []);
+        console.log('Lotes seteados:', data?.length || 0);
 
       } catch (error) {
         console.error('Error fetching lotes:', error);
