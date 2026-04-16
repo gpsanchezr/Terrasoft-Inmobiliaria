@@ -50,8 +50,7 @@ export default function Home() {
     const fetchLotes = async () => {
       try {
         const params = new URLSearchParams();
-        params.append('estado', 'disponible');
-        if (filtroEtapa) params.append('etapa', filtroEtapa);
+        if (filtroEtapa && filtroEtapa !== 'Todos') params.append('etapa', filtroEtapa);
 
         const response = await fetch(`/api/lotes?${params.toString()}`);
         if (!response.ok) {
@@ -59,7 +58,11 @@ export default function Home() {
         }
         const data = await response.json();
         console.log('Lotes cargados:', data);
-        setLotes(data || []);
+        if (Array.isArray(data)) {
+          setLotes(data);
+        } else {
+          setLotes([]);
+        }
         console.log('Lotes seteados:', data?.length || 0);
 
       } catch (error) {
