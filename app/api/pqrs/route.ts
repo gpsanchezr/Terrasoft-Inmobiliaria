@@ -1,4 +1,4 @@
-import { createPqrs, getAllPqrs } from '@/lib/db';
+import { supabase } from '@/lib/supabase';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(request: NextRequest) {
@@ -13,7 +13,15 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const pqrs = await createPqrs(user_id, tipo, asunto, descripcion);
+const { data: pqrsData, error } = await supabase
+  .from('pqrs')
+  .insert([{ user_id, tipo, asunto, descripcion }])
+  .select()
+  .single();
+
+if (error) throw error;
+
+const pqrs = pqrsData;
 
     return NextResponse.json(
       { success: true, pqrs },
@@ -30,7 +38,14 @@ export async function POST(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
   try {
-    const pqrs = await getAllPqrs();
+const { data: pqrsData, error } = await supabase
+  .from('pqrs')
+  .select('*')
+  .order('created_at', { ascending: false });
+
+if (error) throw error;
+
+const pqrs = pqrsData;
 
     return NextResponse.json(pqrs);
   } catch (error) {
