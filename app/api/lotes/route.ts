@@ -1,59 +1,40 @@
-import { supabase } from '@/lib/supabase';
-import type { Lote } from '@/lib/supabase';
-import { NextRequest, NextResponse } from 'next/server';
+import { createClient } from '@supabase/supabase-js'
+import { NextRequest, NextResponse } from 'next/server'
 
-export const dynamic = 'force-dynamic';
+export const dynamic = 'force-dynamic'
 
 export async function GET(request: NextRequest) {
   try {
-    const searchParams = request.nextUrl.searchParams;
-    const etapa = searchParams.get('etapa');
-    const estado = searchParams.get('estado');
+    const { searchParams } = new URL(request.url)
+    const estado = searchParams.get('estado')
+    const etapa = searchParams.get('etapa')
 
-let query = supabase.from('lotes').select('*').order('numero_lote', { ascending: true });
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
+    const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    const supabase = createClient(supabaseUrl, supabaseKey)
+    
+    let query = supabase
+      .from('lotes')
+      .select('*')
+      .order('numero_lote')
 
-if (etapa) {
-  query = query.eq('etapa', etapa);
-}
+    if (estado) {
+      query = query.eq('estado', estado)
+    }
+    if (etapa && etapa !== 'Todos') {
+      query = query.eq('etapa', etapa)
+    }
 
-if (estado) {
-  query = query.eq('estado', estado);
-} else {
-  query = query.eq('estado', 'disponible');
-}
+    const { data: lotes, error } = await query
 
-const { data: lotesRaw, error } = await query;
-if (error) {
-  console.error('Supabase lotes query error:', error);
-  throw error;
-}
+    if (error) {
+      console.error('Error de Supabase lotes:', error)
+      return NextResponse.json({ error: error.message }, { status: 500 })
+    }
 
-if (error) throw error;
-
-const lotes = lotesRaw as Lote[];
-
-    // Enriquecer con información de compras
-const lotesConInfo = await Promise.all(
-  lotes.map(async (lote) => {
-    const { count: interesados } = await supabase
-      .from('compras')
-      .select('*', { count: 'exact', head: true })
-      .eq('lote_id', lote.id)
-      .eq('estado', 'activa');
-
-    return {
-      ...lote,
-      interesados: interesados || 0
-    };
-  })
-);
-
-    return NextResponse.json(lotesConInfo);
-  } catch (error) {
-    console.error('Error en lotes API:', error);
-    return NextResponse.json(
-      { error: 'Error interno del servidor' },
-      { status: 500 }
-    );
+    return NextResponse.json(lotes || [])
+  } catch (err) {
+    console.error('Error interno lotes API:', err)
+    return NextResponse.json({ error: 'Error interno del servidor' }, { status: 500 })
   }
 }

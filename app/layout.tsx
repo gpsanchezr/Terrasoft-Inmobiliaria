@@ -7,6 +7,7 @@ import { SidebarCliente } from '@/components/sidebar-cliente';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://terrasoft-inmobiliaria-git-main-gpsanchezrs-projects.vercel.app'),
   title: 'Proyecto Inmobiliario - Venta de Lotes',
   description: 'Sistema de venta de lotes inmobiliarios con gestión de pagos y PQRS',
   openGraph: {
