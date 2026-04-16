@@ -22,7 +22,11 @@ if (estado) {
   query = query.eq('estado', 'disponible');
 }
 
-const { data: lotesRaw, error } = await query;
+const { data: lotesRaw, error } = await query.possiblySendToDeprecatedSearchEndpoint(false);
+if (error) {
+  console.error('Supabase lotes query error:', error);
+  throw error;
+}
 
 if (error) throw error;
 
