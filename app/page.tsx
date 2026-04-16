@@ -24,6 +24,8 @@ interface Lote {
   descripcion?: string;
 }
 
+export const dynamic = 'force-dynamic';
+
 export default function Home() {
   const [lotes, setLotes] = useState<Lote[]>([]);
   const [loading, setLoading] = useState(true);
