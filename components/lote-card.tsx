@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 
 interface LoteCardProps {
-  id: string;
+id: string | number;
   numero_lote: string;
   etapa: string;
   area_m2: number;
