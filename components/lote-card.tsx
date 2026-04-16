@@ -47,7 +47,7 @@ export function LoteCard({
           <img
             src={imagen_url || 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=1000'}
             alt={`Lote ${numero_lote}`}
-            className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+className="w-full h-48 object-cover rounded-t-xl"
           />
         </div>
 
