@@ -55,7 +55,6 @@ export default function Home() {
         }
         const data = await response.json();
         console.log('Lotes cargados:', data);
-        alert('API respondió con: ' + JSON.stringify(data));
         if (Array.isArray(data)) {
           setLotes(data);
         } else {

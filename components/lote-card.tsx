@@ -5,12 +5,14 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 
 interface LoteCardProps {
-id: string | number;
+  id: string | number;
+  nombre?: string;
   numero_lote: string;
   etapa: string;
   area_m2: number;
   ubicacion: string;
-  valor_total: number;
+  precio?: number;
+  valor_total?: number;
   estado: 'disponible' | 'reservado' | 'vendido';
   descripcion?: string;
   imagen_url?: string;
@@ -48,10 +50,13 @@ function getAccionBotones(etapa: string, estado: string) {
 }
 
 export function LoteCard({
+  id,
+  nombre,
   numero_lote,
   etapa,
   area_m2,
   ubicacion,
+  precio,
   valor_total,
   estado,
   descripcion,
@@ -67,11 +72,11 @@ export function LoteCard({
       </div>
 
       {/* Imagen grande */}
-      <div className="h-64 overflow-hidden bg-gradient-to-br from-gray-50">
+      <div className="aspect-video overflow-hidden bg-gradient-to-br from-gray-50">
         <img
           src={imagen_url || 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800'}
           alt={`Lote ${numero_lote}`}
-          className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500"
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         />
       </div>
 
@@ -80,12 +85,12 @@ export function LoteCard({
         {/* Header nombre + precio */}
         <div className="flex items-start justify-between gap-4">
           <div>
-            <h3 className="text-xl font-bold text-gray-900">Lote {numero_lote}</h3>
+            <h3 className="text-xl font-bold text-gray-900">{nombre || `Lote ${numero_lote}`}</h3>
             <p className="text-sm text-gray-500 mt-1 font-medium">{etapa}</p>
           </div>
           <div className="text-right">
             <p className="text-2xl font-bold text-green-600">
-              ${(valor_total || 0).toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}
+              ${(precio || valor_total || 0).toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}
             </p>
           </div>
         </div>
